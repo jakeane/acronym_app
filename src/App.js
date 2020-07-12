@@ -20,12 +20,14 @@ import Loader from "react-loader-spinner";
 function App() {
   const classes = useStyles();
   const [word, setWord] = useState("");
-  const [data, setData] = useState("all");
+  const [data, setData] = useState("quotes");
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [resWord, setResWord] = useState("");
+  const [inputError, setInputError] = useState(false);
 
   const generateAcronym = () => {
+    setInputError(false);
     if (/^[A-Za-z]+$/.test(word)) {
       setLoading(true);
       setResWord(formatAcronym(word));
@@ -39,7 +41,7 @@ function App() {
           setLoading(false);
         });
     } else {
-      console.log("bad input");
+      setInputError(true);
     }
   };
 
@@ -71,6 +73,7 @@ function App() {
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  error={inputError}
                   variant="outlined"
                   margin="normal"
                   required
@@ -78,7 +81,11 @@ function App() {
                   name="title"
                   label="Word"
                   autoFocus
-                  helperText="Single word to generate acronym with"
+                  helperText={
+                    inputError
+                      ? "Input needs to be a single word with no spaces"
+                      : "Single word to generate acronym with"
+                  }
                   onChange={(e) => setWord(e.target.value)}
                 />
               </Grid>
@@ -96,16 +103,16 @@ function App() {
                     value={data}
                     onChange={(e) => setData(e.target.value)}
                   >
-                    <MenuItem value={"all"}>All Data</MenuItem>
+                    <MenuItem value={"quotes"}>Famous Quotes</MenuItem>
                     <MenuItem value={"bible"}>The Bible</MenuItem>
+                    <MenuItem value={"shakespeare"}>Shakespeare Plays</MenuItem>
                     <MenuItem value={"inaugural"}>
                       Inauguration Speeches
                     </MenuItem>
-                    <MenuItem value={"quotes"}>Famous Quotes</MenuItem>
-                    <MenuItem value={"shakespeare"}>Shakespeare Plays</MenuItem>
                     <MenuItem value={"state_union"}>
                       State of the Union Addresses
                     </MenuItem>
+                    <MenuItem value={"all"}>All Data</MenuItem>
                   </Select>
                   <FormHelperText>Data used to generate acronym</FormHelperText>
                 </FormControl>
