@@ -2,7 +2,7 @@
 from flask import Flask, request
 from create_acronym import generate_acronym
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 
 
 @app.route('/')
