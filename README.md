@@ -10,3 +10,6 @@ Link to website [here](http://www.boboddy.net/)
 
 ![Demo GIF](https://media.giphy.com/media/QZCdZX0LknNRVogrnU/giphy.gif)
 
+## Future Plans
+- Improve UI. It's incredibly simple and plain.
+- Optimize generation algorithm. It sometimes takes upwards of 30 seconds to produce a result.
